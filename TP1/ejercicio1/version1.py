@@ -1,4 +1,4 @@
-dataset = [(1,6), (2,12), (3,18)]
+dataset = [(1,9), (2,18), (3,27)]
         
 def function(x):
     return x*x
@@ -29,4 +29,4 @@ def train(l=0.001, epsilon=0.0001):
     return w
     
 print(train())
-    
+
