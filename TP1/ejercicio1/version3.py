@@ -15,34 +15,40 @@ class Lineal:
         self.weigh = 0
         self.bias = 0
         
-    def grad_w(f, x, bi):
+    def grad_w(self, f, w, b):
         delta=0.00000001
-        return (f(x+delta, bi)-f(x,bi))/delta
+        return (f(w+delta, b)-f(w,b))/delta
+    
+    def grad_b(self, f, w, b):
+        delta=0.00000001
+        return (f(w, b+delta)-f(w,b))/delta
 
-    def error(x,y): #diferencia al cuadrado entre el valor estimado y el punto real (dataset).
+    def error(self,x,y): #diferencia al cuadrado entre el valor estimado y el punto real (dataset).
         return (y-x)**2
 
-    def loss(self, m, b): #error total entre la funcion estimada y los puntos del dataset
+    def loss(self, w, b): #error total entre la funcion estimada y los puntos del dataset
         sum = 0
         for index, (i, j) in enumerate(self.dataset):
-            sum += self.error(m*self.dataset[index][0]+b, self.dataset[index][1])
+            sum += self.error(w*self.dataset[index][0]+b, self.dataset[index][1])
         return sum
 
     def train(self):
         while(True):
             wprev = self.weigh
             bprev = self.bias
-            self.weigh=self.weigh-self.learningRate*self.grad(self.loss, self.weigh)
-            self.bias=self.bias-self.learningRate*self.grad(self.loss, self.bias)
+            self.weigh=self.weigh-self.learningRate*self.grad_w(self.loss, self.weigh, self.bias)
+            self.bias=self.bias-self.learningRate*self.grad_b(self.loss, self.weigh, self.bias)
             if(abs(self.weigh-wprev)<self.epsilon and abs(self.bias-bprev)<self.epsilon):
                 break
-        print("Weigh= ", self.weigh, " Bias= ", self.bias)
+        return self.weigh, self.bias
 
 
-#Creando clase y probando
+#Creando objetos y probando
 
 set1 = [(1,10), (2,19), (3,28)] # y=9x+1
+set2 = [(-5,-30), (-10,-55), (3,10), (10,45)] # y=5x-5
 
 prueba1 = Lineal(set1, 0.001, 0.0001)
 
-prueba1.train()
+print(prueba1.train())
+print(Lineal(set2).train())
