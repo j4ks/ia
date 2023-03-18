@@ -36,8 +36,8 @@ class Lineal:
         while(True):
             wprev = self.weigh
             bprev = self.bias
-            self.weigh=self.weigh-self.learningRate*self.grad_w(self.loss, self.weigh, self.bias)
-            self.bias=self.bias-self.learningRate*self.grad_b(self.loss, self.weigh, self.bias)
+            self.weigh=wprev-self.learningRate*self.grad_w(self.loss, self.weigh, self.bias)
+            self.bias=bprev-self.learningRate*self.grad_b(self.loss, self.weigh, self.bias)
             if(abs(self.weigh-wprev)<self.epsilon and abs(self.bias-bprev)<self.epsilon):
                 break
         return self.weigh, self.bias
@@ -48,7 +48,7 @@ class Lineal:
 set1 = [(1,10), (2,19), (3,28)] # y=9x+1
 set2 = [(-5,-30), (-10,-55), (3,10), (10,45)] # y=5x-5
 
-prueba1 = Lineal(set1, 0.001, 0.0001)
+prueba1 = Lineal(set1)
 
 print(prueba1.train())
 print(Lineal(set2).train())

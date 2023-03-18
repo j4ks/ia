@@ -26,8 +26,8 @@ def train(l=0.001, epsilon=0.000001):
     while(True):
         wprev = w
         bprev = b
-        w=w-l*grad_w(loss, w, b)
-        b=b-l*grad_b(loss, w, b)
+        w=wprev-l*grad_w(loss, w, b)
+        b=bprev-l*grad_b(loss, w, b)
         if(abs(w-wprev)<epsilon and abs(b-bprev)<epsilon):
             break
         
