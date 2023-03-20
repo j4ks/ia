@@ -29,4 +29,14 @@ def train(l=0.001, epsilon=0.0001):
     return w
     
 print(train())
-
+def lots_of_math(a, b, c, d):
+    if(a == 0):
+        return 0
+    first = a + b
+    second = c - d
+    third = first * second
+    fourth = third % a
+    print(first)
+    print(second)
+    print(third)
+    return fourth

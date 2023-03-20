@@ -1,4 +1,7 @@
-#Version 4: Orientado a Objetos y con bias y 2 variables y normalizando el dataset
+#Version 5: Orientado a Objetos y con bias y 2 variables y funcion de normalizado de dataset
+#Se cambió el dataset de tupla a listas
+import statistics
+
 
 class Lineal:
 
@@ -37,7 +40,31 @@ class Lineal:
         for index, (i, j, k) in enumerate(self.dataset):
             sum += self.error((w*self.dataset[index][0]+w2*self.dataset[index][1])+b, self.dataset[index][2])
         return sum
+    
+    def normalize(self):
+        count = 0
+        xData = []
+        zData = []
+        yData = []
+        
+        for index, (i, j, k) in enumerate(self.dataset):
+            xData.append(self.dataset[index][0]) #x
+            zData.append(self.dataset[index][1]) #z
+            yData.append(self.dataset[index][2]) #y
+            
+        xMean = statistics.mean(xData)
+        xDevi = statistics.stdev(xData)
+        zMean = statistics.mean(zData)
+        zDevi = statistics.stdev(zData)
+        yMean = statistics.mean(yData)
+        yDevi = statistics.stdev(yData)
 
+        for index, (i, j, k) in enumerate(self.dataset):
+            self.dataset[index][0] = (self.dataset[index][0]-xMean)/xDevi
+            self.dataset[index][1] = (self.dataset[index][1]-zMean)/zDevi
+            self.dataset[index][2] = (self.dataset[index][2]-yMean)/yDevi
+    
+    
     def train(self):
         while(True):
             wprev = self.weigh
@@ -53,9 +80,13 @@ class Lineal:
 
 #Creando objetos y probando
 
-set1 = [(6,2,41), (5,3,37), (4,10,45) ] # y=6x+2z+1
+set1 = [(6,2,40), (5,3,36), (4,10,44) ] # y=6x+2z+3
 set2 = [(-5,-30), (-10,-55), (3,10), (10,45)] # y=5x-5
 
-prueba1 = Lineal(set1, 0.001, 0.000001)
+set3 = [[6,2,40],[5,3,36],[4,10,44]]
+
+prueba1 = Lineal(set3, 0.001, 0.0000001)
+
+prueba1.normalize()
 
 print(prueba1.train())
