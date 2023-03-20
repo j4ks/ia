@@ -8,6 +8,9 @@ class Lineal:
     weigh = 0
     weigh2 = 0
     bias = 0
+    xDevi = 0
+    yDevi = 0
+    zDevi = 0
     
     def __init__(self, dataset, learningRate = 0.01 , epsilon=0.0001):
         self.dataset = dataset
@@ -42,7 +45,6 @@ class Lineal:
         return sum
     
     def normalize(self):
-        count = 0
         xData = []
         zData = []
         yData = []
@@ -53,17 +55,18 @@ class Lineal:
             yData.append(self.dataset[index][2]) #y
             
         xMean = statistics.mean(xData)
-        xDevi = statistics.stdev(xData)
+        self.xDevi = statistics.stdev(xData)
         zMean = statistics.mean(zData)
-        zDevi = statistics.stdev(zData)
+        self.zDevi = statistics.stdev(zData)
         yMean = statistics.mean(yData)
-        yDevi = statistics.stdev(yData)
+        self.yDevi = statistics.stdev(yData)
 
         for index, (i, j, k) in enumerate(self.dataset):
-            self.dataset[index][0] = (self.dataset[index][0]-xMean)/xDevi
-            self.dataset[index][1] = (self.dataset[index][1]-zMean)/zDevi
-            self.dataset[index][2] = (self.dataset[index][2]-yMean)/yDevi
-    
+            self.dataset[index][0] = (self.dataset[index][0]-xMean)/self.xDevi
+            self.dataset[index][1] = (self.dataset[index][1]-zMean)/self.zDevi
+            self.dataset[index][2] = (self.dataset[index][2]-yMean)/self.yDevi
+
+        print(self.dataset)
     
     def train(self):
         while(True):
@@ -83,10 +86,10 @@ class Lineal:
 set1 = [(6,2,40), (5,3,36), (4,10,44) ] # y=6x+2z+3
 set2 = [(-5,-30), (-10,-55), (3,10), (10,45)] # y=5x-5
 
-set3 = [[6,2,40],[5,3,36],[4,10,44]]
+set3 = [[6,2,40],[5,3,36],[4,10,44],[-1,1,-4]]
 
 prueba1 = Lineal(set3, 0.001, 0.0000001)
 
-prueba1.normalize()
+#prueba1.normalize()
 
 print(prueba1.train())
