@@ -1,5 +1,5 @@
-#Version 5: Orientado a Objetos y con bias y 2 variables y funcion de normalizado de dataset
-#Se cambió el dataset de tupla a listas
+#Version 6: Multivariable
+
 import statistics
 
 
@@ -47,7 +47,6 @@ class Lineal:
     def normalize(self):
         xData = []
         zData = []
-        yData = []
         
         for index, (i, j, k) in enumerate(self.dataset):
             xData.append(self.dataset[index][0]) #x
@@ -88,3 +87,14 @@ prueba1 = Lineal(set3, 0.001, 0.0000001)
 prueba1.normalize()
 
 print(prueba1.train())
+
+# Definir los números complejos
+j = 1j
+z1 = -1 + j
+z2 = -2 - 2j
+
+# Resolver la ecuación
+alpha = z2 / z1
+
+# Mostrar la solución
+print("alpha = ", alpha)
