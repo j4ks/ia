@@ -5,7 +5,7 @@ import torch.nn as nn
 ## our data in tensor form
 x = torch.tensor([[-1.0],  [0.0], [1.0], [2.0], [3.0], [4.0]], dtype=torch.float)
 y = torch.tensor([[-3.0], [-1.0], [1.0], [3.0], [5.0], [7.0]], dtype=torch.float)
-
+z = torch.linspace(-10, 10, 100)
 
 ## Neural network with 1 hidden layer
 layer1 = nn.Linear(1,1, bias=True)

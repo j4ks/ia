@@ -12,6 +12,9 @@ class Lineal:
     yDevi = 0
     zDevi = 0
     
+    def __repr__(self):
+        return "HOLA"
+    
     def __init__(self, dataset, learningRate = 0.01 , epsilon=0.0001):
         self.dataset = dataset
         self.learningRate = learningRate
@@ -88,3 +91,5 @@ prueba1 = Lineal(set3, 0.001, 0.0000001)
 prueba1.normalize()
 
 print(prueba1.train())
+
+print(prueba1)
